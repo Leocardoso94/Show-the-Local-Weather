@@ -1,26 +1,52 @@
-$(document).ready(function() {
-  $(".tw").prop('disabled',true);
-  $('#change').on('click', function() {
-    $(".tw").prop('disabled',false);
-    getQuote();
-  });
-
-  function getQuote() {
-    $.getJSON("https://api.myjson.com/bins/19l9p.json", function(json) {
-
-      $jsonLength = json.length;
-
-      var randomizedQuoteId = Math.floor(Math.random() * ($jsonLength - 0 + 1)) + 0;
-      json = json.filter(function(val) {
-        return (val.id === randomizedQuoteId);
-      });
-      json.forEach(function(val) {
-        quoteText = val.quote;
-        quoteAuthor = val.author;
-        $('blockquote').html("" + quoteText + "<footer><cite>" + quoteAuthor + "</cite></footer>");
-
-        $('#tweet').attr("href", 'https://twitter.com/intent/tweet?text=' + '"' + quoteText + '" - ' + quoteAuthor + ' @LeoCardoso94_').attr("target","_blank");
-      });
+var unid = "C";
+/* Where in the world are you? */
+function clima() {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      loadWeather(position.coords.latitude + ',' + position.coords.longitude);
     });
+  } else {
+    loadWeather("", "455827");
   }
+}
+/* 
+ * Test Locations
+ * Austin lat/long: 30.2676,-97.74298
+ * Austin WOEID: 2357536
+ */
+ $(document).ready(function() {
+  clima();
+
+  $("#unid").on('click', function() {
+    if(unid === "C"){
+      unid = "F";
+    }else{
+      unid = "C";
+    }
+    
+    clima();
+  });
+  
 });
+
+ function loadWeather(location, woeid) {
+  $.simpleWeather({
+    location: location,
+    woeid: woeid,
+    unit: unid,
+    success: function(weather) {
+      $('.temperature').html(weather.temp + "º <em class=\"unid\"> " + unid + "</em>");
+
+      $('.icone').html('<h2><i class="icon-' + weather.code + '"></i></h2>');
+      $('.text').text(weather.text);
+      $('.location').text(weather.city);
+      console.log(weather);
+    },
+    error: function(error) {
+      $("#weather").html('<h1>' + error + '</h1>');
+      loadWeather("", "455827");
+    }
+  });
+}
+
+
