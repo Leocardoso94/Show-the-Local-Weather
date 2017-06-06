@@ -1,0 +1,54 @@
+* {
+  font-family: 'Amita', cursive;
+}
+
+.container-fluid{
+  margin-top: 3em;
+}
+
+body{
+  background-color:#07345a;
+}
+
+.blockquote {
+  padding:50px;
+  width: 70%;
+  heigth: 30px;
+  background-color:#fff;
+  border-radius:2em;
+}
+blockquote{
+  font-size: 2em;
+}
+#change{
+  font-size:2em;
+}
+#tweet i{
+  font-size:3em !important;
+}
+i{
+  color: #696969;
+}
+.fa-twitter{
+  color:#fff;
+}
+
+#change{
+  padding: 0.25em;
+}
+
+button{
+  margin-top: 1em;
+}
+
+.tw{
+  margin-top: 1.9em;
+}
+.navbar-fixed-bottom{
+  background-color: #fff;
+}
+p, a{
+  margin-top: 5em !important;
+  color:#fff;
+  font-weight: bold;
+}
